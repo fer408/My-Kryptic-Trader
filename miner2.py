@@ -33,8 +33,8 @@ while time.time() < end:
                     } 
             list_of_data.append(data)
             data_str += crypto_names[name] + ',' + r.crypto.get_crypto_quote(crypto_names[name])['bid_price'] + ',' + r.crypto.get_crypto_quote(crypto_names[name])['ask_price'] + ',' + r.crypto.get_crypto_quote(crypto_names[name])['mark_price']
+            with open('crypto_data.csv','a') as f:
+                f.write(data_str)
     except TypeError:
         pass
-with open('crypto_data.csv','w') as f:
-    f.write(data_str)
 print(data_str)
