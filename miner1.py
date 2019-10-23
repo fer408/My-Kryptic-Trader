@@ -19,7 +19,7 @@ my_crypto_currencies = r.crypto.get_crypto_positions()
 crypto_names = [val['currency']['code'] for val in my_crypto_currencies]
 
 crypto_data = pd.DataFrame()
-data_str = 'name,ask_price,bid_price,mark_price'
+data_str = 'name,ask_price,bid_price,mark_price' + '\n'
 list_of_data = []
 while time.time() < end:
     try:
@@ -32,9 +32,13 @@ while time.time() < end:
                          'mark_price_pct_change': r.crypto.get_crypto_quote(crypto_names[name])['mark_price']
                     } 
             list_of_data.append(data)
-            data_str += crypto_names[name] + ',' + r.crypto.get_crypto_quote(crypto_names[name])['bid_price'] + ',' + r.crypto.get_crypto_quote(crypto_names[name])['ask_price'] + ',' + r.crypto.get_crypto_quote(crypto_names[name])['mark_price']
+            data_str += crypto_names[name] + ',' + r.crypto.get_crypto_quote(crypto_names[name])['bid_price'] + ',' + r.crypto.get_crypto_quote(crypto_names[name])['ask_price'] + ',' + r.crypto.get_crypto_quote(crypto_names[name])['mark_price'] + '\n'
             with open('crypto_data.csv','a') as f:
                 f.write(data_str)
     except TypeError:
         pass
+
+with open('crypto_data.csv','a') as f:
+    f.write(data_str)
 print(data_str)
+print(1)
